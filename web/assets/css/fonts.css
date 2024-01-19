@@ -1,0 +1,16 @@
+@font-face {
+    font-family: exo;
+    src: url(assets/fonts/exo.regular.otf);
+    
+}
+@font-face {
+    font-family: Ubuntu;
+    src: url(assets/fonts/Ubuntu-Regular.ttf);
+    
+}
+
+@font-face {
+    font-family: Barlow;
+    src: url(assets/fonts/BarlowCondensed-Regular.otf);
+    
+}

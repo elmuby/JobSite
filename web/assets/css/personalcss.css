@@ -1,0 +1,16 @@
+.company-img, company-img-details{
+    width:100px;
+    height:100px;
+    margin-right:30px;
+    overflow: hidden;
+}
+
+.single-job-items .company-img img{
+    width:100%;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.post-details1 ul{
+    margin-left: 30px; 
+}

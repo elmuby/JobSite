@@ -1,0 +1,145 @@
+        @font-face {
+            font-family: BebasNeue;
+            src: url(./fonts/BebasNeue-Regular.otf);
+        }
+
+        @font-face {
+            font-family: Futura;
+            src: url(assets/fonts/Futura\ Round.ttf);
+        }
+
+        @font-face {
+            font-family: Barlow;
+            src: url(assets/fonts/BarlowCondensed-Regular.otf);
+            
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .main {
+            width: 400px;
+            /* height: 70vh; */
+            border-radius: 4px;
+            padding: 10px;
+            background-color: aliceblue;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main>h1 {
+            font-family: Futura;
+            font-size: 2.4rem;
+            text-align: center;
+        }
+
+        input[type="submit"] {
+            background: #4724fb;
+            text-transform: capitalize;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            line-height: 0;
+            padding: 27px 94px;
+            border-radius: 0px;
+            margin: 10px;
+        }
+
+        input[type="submit"]:hover {
+            border-color: black;
+            transition: .5s;
+        }
+
+        .main form {
+            padding: 0 40px;
+            box-sizing: border-box;
+        }
+
+        form .txt_feild {
+            position: relative;
+            border-bottom: 2px solid black;
+            margin: 40px 0;
+        }
+
+        .txt_feild input {
+            font-family: Barlow;
+            width: 100%;
+            padding: .5px;
+            height: 40px;
+            font-size: 18px;
+            border: none;
+            background: none;
+            outline: none;
+        }
+
+        .txt_feild label {
+            font-family: Barlow;
+            position: absolute;
+            top: -15px;
+            transform: translateY(-50%);
+            font-size: 20px;
+            pointer-events: none;
+            transition: .5s;
+        }
+
+        .txt_feild span::before {
+            content: '';
+            position: absolute;
+            top: 41px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: #fb246a;
+            transition: .5s;
+        }
+
+        .txt_feild input:focus~label {
+            color: #fb246a;
+        }
+
+        .txt_feild input:focus~span::before{
+            width: 100%;
+        }
+
+        .txt_feild input:focus~label>svg>path{
+            fill: #fb246a;
+        }
+
+        .sign_up_link {
+            /* margin: 10px; */
+            text-align: center;
+            font-size: 16px;
+            color: #666666;
+        }
+
+        .sign_up_link a {
+            color: #fb246a;
+            text-decoration: none;
+        }
+
+        .sign_up_link a:hover {
+            text-decoration: underline;
+        }
+
+        .pass {
+            margin: -5px 0 20px 5px;
+            color: #a6a6a6;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .pass:hover {
+            text-decoration: underline;
+        }
