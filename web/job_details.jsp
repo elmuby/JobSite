@@ -110,7 +110,7 @@
                                     <li>Application date : <span> ${applicationDate} </span></li>
                                 </ul>
                                 <div class="apply-btn2">
-                                    <a href="ApplicationPage.jsp" class="btn">Apply Now</a>
+                                    <a href="<%= request.getContextPath()%>/ApplicationPage?jobID=${JobID}&employerID=${EmployerID}" class="btn">Apply Now</a>
                                 </div>
                             </div>
                             <div class="post-details4  mb-50">

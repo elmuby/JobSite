@@ -14,7 +14,7 @@
         <title>Application Page</title>
     </head>
     <body>
-        
+        <input type="">
     </body>
 </html>
 <%@include file= "footer.jsp" %>
