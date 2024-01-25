@@ -7,6 +7,7 @@ package Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Properties;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,9 +33,29 @@ public class JobApplication extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try{
-            
-        }catch(Exception e){
+        try {
+            // Sender's email address
+            String from = "your-email@gmail.com";
+
+            // Recipient's email address
+            String to = "recipient-email@example.com";
+
+            // SMTP server information
+            String host = "smtp.gmail.com";
+            String port = "587"; // Port for TLS
+
+            // Email credentials
+            String username = "your-email@gmail.com";
+            String password = "your-email-password";
+
+            // Set properties and create the Session
+            Properties properties = new Properties();
+            properties.put("mail.smtp.auth", "true");
+            properties.put("mail.smtp.starttls.enable", "true");
+            properties.put("mail.smtp.host", host);
+            properties.put("mail.smtp.port", port);
+
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
