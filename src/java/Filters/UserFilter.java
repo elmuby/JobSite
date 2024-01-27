@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author DELL
  */
-@WebFilter(filterName = "UserFilter", urlPatterns = {"/JobDetails", "/"})
+@WebFilter(filterName = "UserFilter", urlPatterns = {"/JobDetails", "/ApplicationPage"})
 public class UserFilter implements Filter {
 
     /**
@@ -36,6 +36,7 @@ public class UserFilter implements Filter {
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet error occurs
      */
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
