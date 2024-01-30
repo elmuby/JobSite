@@ -58,7 +58,6 @@ public class signin extends HttpServlet {
                     ResultSet rs = ps.executeQuery();
 
                     if (rs.next()) {
-                        System.out.println("succesfully");
                         HttpSession session = request.getSession();
                         int id = rs.getInt("Userid");
 
@@ -76,7 +75,12 @@ public class signin extends HttpServlet {
                                     RequestDispatcher rd = request.getRequestDispatcher("setup_profile.jsp");
                                     rd.forward(request, response);
 
-                                } else {
+                                }else if(role.equals("Admin")){
+                                    session.setAttribute("adminId", id);
+                                    RequestDispatcher rd = request.getRequestDispatcher("admin");
+                                    rd.forward(request, response);
+                                }
+                                else {
                                     response.sendRedirect("index.jsp");
                                     session.setAttribute("id", id);
                                     session.setMaxInactiveInterval(21600);
