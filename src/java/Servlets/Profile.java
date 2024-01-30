@@ -77,7 +77,6 @@ public class Profile extends HttpServlet {
                 String jobQuery = "select JobID, A.EmployerID, JobTitle, JobLocation, Salary,"
                                 + " CompanyName, company_logo, JobNature from Job A join Employer B "
                                 + "ON A.EmployerID = B.EmployerID WHERE A.EmployerID = ? order by A.PostedDate desc";
-                System.out.println(EmployerID);
                 List<JobListBean> jobList = new ArrayList<>();
                 try (PreparedStatement ps2 = con.prepareStatement(jobQuery)) {
                     ps2.setString(1, EmployerID);

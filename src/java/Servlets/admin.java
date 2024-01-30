@@ -6,6 +6,8 @@
 package Servlets;
 
 import Project.ConnectionProvider;
+import Project.EmployerBean;
+import Project.UserBean;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -46,12 +48,33 @@ public class admin extends HttpServlet {
                     String userQuery = "SELECT * FROM [USER] WHERE UserRole = 'Employer' OR UserRole = 'Job Seeker'";
                     Statement stmnt = connection.createStatement();
                     ResultSet rs1 = stmnt.executeQuery(userQuery);
+                    //creating a list for the bean
+                    List<UserBean> userList = new ArrayList<>();
                     while (rs1.next()) {
-                        request.setAttribute("userId", rs1.getString("userId"));
-                        request.setAttribute("name", rs1.getString("FullName"));
-                        request.setAttribute("role", rs1.getString("UserRole"));
-                        System.out.println(rs1.getString("userId"));
+                        //creating object of the bean class
+                        UserBean userBean = new UserBean();
+                        userBean.setUserId( rs1.getString("userId"));
+                        userBean.setRole(rs1.getString("UserRole"));
+                        userBean.setUserName(rs1.getString("FullName"));
+                        
+                        //adding the userBean to the list 
+                        userList.add(userBean);
 
+                    }
+                    request.setAttribute("userList", userList);
+                    
+                    //for all employers
+                    String employerQuery = "SELECT * FROM Employer";
+                    Statement stmt = connection.createStatement();
+                    ResultSet rs2 = stmt.executeQuery(employerQuery);
+                    
+                    //Creating list for the bean
+                    List<EmployerBean> employerList = new ArrayList<>();
+                    while(rs2.next()){
+                        EmployerBean empBean = new EmployerBean();
+                        
+                        empBean.setEmployerId(rs2.getString("EmployerID"));
+                        empBean.setEmployerName(rs2.getString("CompanyName"));
                     }
 
                 } else {
