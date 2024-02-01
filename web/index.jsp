@@ -237,8 +237,6 @@
                     </div>
                   </div>
                       <%    
-                          System.out.println(r_s.getString("JobNature"));
-                          System.out.println(r_s.getString("EmployerID"));
                       }
                       %>                   
                     </div>
