@@ -42,7 +42,8 @@ public class admin extends HttpServlet {
                 ps.setString(1, id);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    request.setAttribute(id, rs.getString("FullName"));
+                    request.setAttribute("name", rs.getString("FullName"));
+                    System.out.println(rs.getString("FullName"));
 
                     //for all users
                     String userQuery = "SELECT * FROM [USER] WHERE UserRole = 'Employer' OR UserRole = 'Job Seeker'";
@@ -53,38 +54,66 @@ public class admin extends HttpServlet {
                     while (rs1.next()) {
                         //creating object of the bean class
                         UserBean userBean = new UserBean();
-                        userBean.setUserId( rs1.getString("userId"));
+                        userBean.setUserId(rs1.getString("userId"));
                         userBean.setRole(rs1.getString("UserRole"));
                         userBean.setUserName(rs1.getString("FullName"));
-                        
+
                         //adding the userBean to the list 
                         userList.add(userBean);
+                        
 
                     }
                     request.setAttribute("userList", userList);
-                    
+                    System.out.println(userList);
+
                     //for all employers
-                    String employerQuery = "SELECT * FROM Employer";
+                    String employerQuery = "SELECT employerId, FORMAT(DateRegistered, 'd, MMMM yyyy') AS 'Date', CompanyName FROM [user]\n"
+                            + "JOIN Employer ON UserID = EmployerID";
                     Statement stmt = connection.createStatement();
                     ResultSet rs2 = stmt.executeQuery(employerQuery);
-                    
-                    //Creating list for the bean
-                    List<EmployerBean> employerList = new ArrayList<>();
-                    while(rs2.next()){
-                        EmployerBean empBean = new EmployerBean();
-                        
-                        empBean.setEmployerId(rs2.getString("EmployerID"));
-                        empBean.setEmployerName(rs2.getString("CompanyName"));
-                    }
 
+                    //Creating list for the bean
+                    List<UserBean> employerList = new ArrayList<>();
+                    while (rs2.next()) {
+                        UserBean empBean = new UserBean();
+
+                        empBean.setEmployerId(rs2.getString("employerId"));
+                        empBean.setEmployeName(rs2.getString("CompanyName"));
+                        empBean.setDate(rs2.getString("Date"));
+
+                        employerList.add(empBean);
+                    }
+                    request.setAttribute("employerList", employerList);
+
+
+                    //for job seekers
+                    String jQuery = "SELECT userId, FullName, FORMAT(DateRegistered, 'd, MMMM yyyy') AS 'Date'"
+                            + " From [User] WHERE UserRole = 'Job Seeker' ";
+                    Statement statement = connection.createStatement();
+                    ResultSet rs3 = statement.executeQuery(jQuery);
+
+                    //creating list for job seekers
+                    List<UserBean> jobSeeker = new ArrayList<>();
+                    while (rs3.next()) {
+                        UserBean jobSeekerBean = new UserBean();
+                        jobSeekerBean.setUserId(rs3.getString("UserId"));
+                        jobSeekerBean.setUserName(rs3.getString("FullName"));
+                        jobSeekerBean.setDate(rs3.getString("Date"));
+
+                        jobSeeker.add(jobSeekerBean);
+                    }
+                    request.setAttribute("jobSeekerList", jobSeeker);
+                    
+                    //for messages
+                    
+                    request.getRequestDispatcher("admin.jsp").forward(request, response);
                 } else {
                     response.sendRedirect("error.jsp");
                 }
 
                 //List<UsersList> userList = new ArrayList<>();
-
             } else {
-                request.setAttribute("errorMessage", "OOps");
+                request.setAttribute("errorMessage", "OOps sign in first");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("signin.jsp");
                 dispatcher.forward(request, response);
 
