@@ -75,7 +75,7 @@ public class signin extends HttpServlet {
                                     RequestDispatcher rd = request.getRequestDispatcher("setup_profile.jsp");
                                     rd.forward(request, response);
 
-                                }else if(role.equals("Admin")){
+                                }else if(role.equals("admin")){
                                     session.setAttribute("adminId", id);
                                     RequestDispatcher rd = request.getRequestDispatcher("admin");
                                     rd.forward(request, response);

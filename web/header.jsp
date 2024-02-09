@@ -62,6 +62,7 @@
             Connection connection = ConnectionProvider.getConnection();
             String sQuery = "SELECT * FROM Employer WHERE EmployerID = ?";
             session = request.getSession(false);
+            response.setHeader("Cache-Control", "No-Cache, no-store, must-revalidate");
             if (session.getAttribute("id") != null) {
                 try {
                     String id = session.getAttribute("id").toString();

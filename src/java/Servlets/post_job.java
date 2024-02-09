@@ -105,14 +105,6 @@ public class post_job extends HttpServlet {
                 System.out.println(e);
             }
 
-////            System.out.println(title);
-////            System.out.println(description);
-////            System.out.println(location);
-////            System.out.println(Requirements);
-////            System.out.println(salary);
-////            System.out.println(sal_currency);
-////            System.out.println(nature);
-////            System.out.println(date);
         } catch (Exception e) {
             System.out.println(e);
         }

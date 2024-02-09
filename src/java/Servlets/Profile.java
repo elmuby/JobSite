@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,6 +40,10 @@ public class Profile extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            HttpSession session = request.getSession();
+            if(session.getAttribute("id").toString().equals(request.getParameter("EmployerID"))){
+                
+            
             Connection con = ConnectionProvider.getConnection();
             String EmployerID = request.getParameter("EmployerID");
             String query = "SELECT * FROM EMPLOYER WHERE EmployerID = ?";
@@ -119,7 +124,9 @@ public class Profile extends HttpServlet {
             }
 
             request.getRequestDispatcher("profile.jsp").forward(request, response);
-
+            }else{
+                response.sendRedirect("error.jsp");
+            }
         } catch (Exception e) {
             System.out.println(e);
         }

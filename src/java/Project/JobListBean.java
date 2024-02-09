@@ -19,6 +19,15 @@ public class JobListBean {
     private String salaryRange;
     private String companyName;
     private String employerID;
+    private String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getEmployerID() {
         return employerID;

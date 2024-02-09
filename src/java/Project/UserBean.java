@@ -17,7 +17,33 @@ private String date;
 private String employerId;
 private String jobSeekerId;
 private String employeName;
+private String messageId;
+private String message;
+private String email;
 
+    public String getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public String getEmployeName() {
         return employeName;
     }

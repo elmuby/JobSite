@@ -6,7 +6,7 @@
 package Servlets;
 
 import Project.ConnectionProvider;
-import Project.EmployerBean;
+import Project.JobListBean;
 import Project.UserBean;
 import java.io.IOException;
 import java.sql.*;
@@ -60,7 +60,6 @@ public class admin extends HttpServlet {
 
                         //adding the userBean to the list 
                         userList.add(userBean);
-                        
 
                     }
                     request.setAttribute("userList", userList);
@@ -85,7 +84,6 @@ public class admin extends HttpServlet {
                     }
                     request.setAttribute("employerList", employerList);
 
-
                     //for job seekers
                     String jQuery = "SELECT userId, FullName, FORMAT(DateRegistered, 'd, MMMM yyyy') AS 'Date'"
                             + " From [User] WHERE UserRole = 'Job Seeker' ";
@@ -103,9 +101,42 @@ public class admin extends HttpServlet {
                         jobSeeker.add(jobSeekerBean);
                     }
                     request.setAttribute("jobSeekerList", jobSeeker);
-                    
+
+                    //for jobs
+                    String jobQuery = "select JobID, JobTitle,CompanyName ,FORMAT(PostedDate, 'd, MMMM yyyy') AS 'Date'  from Job A "
+                            + "join Employer B ON A.EmployerID = B.EmployerID";
+                    Statement jobStatement = connection.createStatement();
+                    ResultSet jobRs = jobStatement.executeQuery(jobQuery);
+                   
+                    List<JobListBean> jobList = new ArrayList<>();
+                    while(jobRs.next()){
+                        JobListBean jobBean = new JobListBean();
+                        jobBean.setJobID(jobRs.getString("JobId"));
+                        jobBean.setJobTitle(jobRs.getString("JobTitle"));
+                        jobBean.setCompanyName(jobRs.getString("CompanyName"));
+                        jobBean.setDate(jobRs.getString("Date"));
+                        
+                        jobList.add(jobBean);
+                    }
+                    request.setAttribute("jobs", jobList);
+                                      
+                   
                     //for messages
-                    
+                    String msgQuery = "SELECT *, FORMAT(DatePosted, 'd, MMMM yyyy') AS 'Date'  FROM ContactUs";
+                    Statement msgStatement = connection.createStatement();
+                    ResultSet msgRs = msgStatement.executeQuery(msgQuery);
+                    List<UserBean> msg = new ArrayList<>();
+                    while (msgRs.next()) {
+                        UserBean msgBean = new UserBean();
+                        msgBean.setMessageId(msgRs.getString("messageId"));
+                        msgBean.setUserName(msgRs.getString("FullName"));
+                        msgBean.setMessage(msgRs.getString("Message"));
+                        msgBean.setDate(msgRs.getString("Date"));
+
+                        msg.add(msgBean);
+                    }
+                    request.setAttribute("messages", msg);
+
                     request.getRequestDispatcher("admin.jsp").forward(request, response);
                 } else {
                     response.sendRedirect("error.jsp");

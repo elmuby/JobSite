@@ -86,7 +86,8 @@
                         <td>${s.userName}</td>
                         <td>${s.role}</td>
                         <th>
-                            <button>Delete</button>
+                            <button> <a href="<%= request.getContextPath()%>/DeleteUser?userId=${s.userId}">Delete </a> </button>
+                           
                         </th>
                         </tr>
                     </c:forEach>
@@ -115,7 +116,7 @@
                     <td>${s.employeName}</td>
                     <td>${s.date}</td>
                     <th>
-                        <button>Delete</button>
+                        <button><a href="<%= request.getContextPath()%>/DeleteUser?userId=${s.userId}">Delete </a></button>
                     </th>
                     </tr>
                         </c:forEach> 
@@ -165,15 +166,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <c:forEach var="s" items="${jobs}">
+                            
                         <tr>
                     <input type="hidden" name="jobId" value="">
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
+                    <th scope="row">${s.jobID}</th>
+                    <td>${s.jobTitle}</td>
+                    <td>${s.companyName}</td>
+                    <td>${s.date}</td>
                     <th>
                         <button>Delete</button>
                     </th>
                     </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -191,13 +196,15 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <c:forEach var="s" items="${messages}">      
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
+                            <th scope="row">${s.messageId}</th>
+                            <td>${s.userName}</td>
+                            <td>${s.date}</td>
                             <th>
                                 <button>Delete</button>
                             </th>
+                        </c:forEach>
                         </tr>
                     </tbody>
                 </table>

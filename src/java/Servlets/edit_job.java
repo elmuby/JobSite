@@ -48,9 +48,7 @@ public class edit_job extends HttpServlet {
 
                 String JobTitle = rs.getString("JobTitle");
                 String JobDescription = rs.getString("JobDescription");
-                System.out.println(JobDescription);
                 String RequiredKnowledge = rs.getString("jobRequirement");
-                System.out.println(RequiredKnowledge);
                 String SalaryRange = rs.getString("Salary");
                 String Location = rs.getString("JobLocation");
                 String vacancy = rs.getString("vacancy");

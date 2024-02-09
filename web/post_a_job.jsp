@@ -13,15 +13,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
         <style>
+            @font-face {
+                font-family: barlow;
+                src: url(./assets/fonts/BarlowCondensed-Regular.otf);
+            }
+            @font-face {
+                font-family: ubuntu;
+                src: url(./assets/fonts/Ubuntu-Regular.ttf);
+            }
             * {
                 box-sizing: border-box;
                 margin: 0;
                 padding: 0;
             }
 
-            body {
-                font-family: 'Ubuntu', sans-serif;
-            }
 
             .my-header {
                 position: relative;
@@ -66,7 +71,7 @@
             }
 
             .post_job_header {
-                font-family: 'Barlow', sans-serif;
+                font-family: Barlow;
                 font-size: 2rem;
             }
 
@@ -99,7 +104,7 @@
 
             .txt_feild input,
             .txt_feild textarea, .job_type_option {
-                font-family: 'Barlow', sans-serif;
+                font-family: Barlow;
                 width: 100%;
                 padding: 5px;
                 height: 40px;
@@ -122,7 +127,7 @@
             }
 
             .txt_feild label {
-                font-family: 'Barlow', sans-serif;
+                font-family: Barlow;
                 font-size: 20px;
                 display: flex;
                 align-items: center;
@@ -154,20 +159,19 @@
             <div style="position: relative; z-index: 1;">
                 <p>Post A Job</p>
                 <br>
-                <p style="font-size: 1.3rem;"><a href="">Home</a> / <a href="">job</a> / post a job</p>
             </div>
         </header>
         <main>
             <section class="main-div">
                 <h2 class="post_job_header">Post A Job</h2>
                 <div class="inner_div">
-                    <form action="post_job" method="post">
+                    <form id="myform" action="post_job" method="post">
                         <p class="form_heading_name">Job Details</p>
                         <hr style="margin-top: 20px;">
                         <br>
                         <!--to keep track of employerID-->
                         <input type="hidden" name="employerID" value="${EmployerID}"/>
-                        
+
                         <div class="txt_feild">
                             <input name="job_name" placeholder="Job Name" type="text" required>
                             <label for="">
@@ -215,7 +219,7 @@
                                 Requirements
                             </label>
                         </div>
-                        
+
                         <div class="txt_feild">
                             <input name="vacancy" placeholder="Number of Slots Available..." type="number" required>
                             <label for="">
@@ -223,7 +227,7 @@
                                 Vacancy
                             </label>
                         </div>
-                        
+
                         <div class="txt_feild share">
                             <div>
                                 <input name="salary" class="job_type_input" style="width: 70%;" placeholder="eg: 2000" type="number" required>
@@ -259,7 +263,9 @@
                             </label>
                         </div>
                         <div class="txt_feild">
-                            <input name="date" type="date" required>
+
+                            <input type="date" id="dateInput" name="date"> <!-- Assuming this is your date input field -->
+
                             <label for="">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14"
                                      viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
@@ -278,12 +284,33 @@
                         <%
                             }
                         %>
-                        <button style=" display: block; font-family: ubuntu; font-size: 20px; padding: 10px 20px; background-color: #fb246a; border: none; border-radius: 4px; color: white;" type="submit"> Submit </button>
+                        <button id="submitButton" style=" display: block; font-family: ubuntu; font-size: 20px; padding: 10px 20px; background-color: #fb246a; border: none; border-radius: 4px; color: white;" type="">Submit</button>
+
+                        <div id="message" style="display: none;">Invalid date</div>
+
                     </form>
                 </div>
             </section>
         </main>
         <script>
+            document.getElementById("myform").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the form from submitting
+
+    const currentDate = new Date();
+    const selectedDate = new Date(document.getElementById("dateInput").value);
+    const button = document.getElementById("submitButton");
+
+    if (selectedDate < currentDate) {
+        button.setAttribute("type", "button"); // Change the type to "button"
+        document.getElementById("message").style.display = "block";
+        location.reload();
+    } else {
+        this.submit(); // If date is valid, submit the form
+    }
+});
+
+            
+            ``
             document.querySelector(".job_type_option").addEventListener("mouseenter", e => {
                 document.querySelector(".nail").style.color = '#fb246a'
                 document.querySelector(".jail").style.fill = '#fb246a'

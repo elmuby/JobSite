@@ -47,27 +47,30 @@ public class EmployerFilter implements Filter {
         PrintWriter out = response.getWriter();
         if (session != null) {
             try {
-                String id = session.getAttribute("id").toString();
-                Connection con = ConnectionProvider.getConnection();
-                String query = "SELECT * FROM Employer WHERE EmployerID = ?";
-                PreparedStatement ps = con.prepareStatement(query);
-                ps.setString(1, id);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    chain.doFilter(request, response);
+                if (session.getAttribute("id")!= null) {
+                    String id = session.getAttribute("id").toString();
+                    Connection con = ConnectionProvider.getConnection();
+                    String query = "SELECT * FROM Employer WHERE EmployerID = ?";
+                    PreparedStatement ps = con.prepareStatement(query);
+                    ps.setString(1, id);
+                    ResultSet rs = ps.executeQuery();
+                    if (rs.next()) {
+                        chain.doFilter(request, response);
+                    } else {
+                        out.print("OOPS Something went wrong");
+
+                    }
                 } else {
-                    out.print("OOPS Something went wrong");
-                  
+                    res.sendRedirect("index.jsp");
                 }
 
             } catch (Exception e) {
                 System.out.println(e);
             }
-        }else{
+        } else {
             req.setAttribute("errorMessage", "Please Log In first");
             req.getRequestDispatcher("signin.jsp").include(request, response);
         }
-        
 
     }
 
